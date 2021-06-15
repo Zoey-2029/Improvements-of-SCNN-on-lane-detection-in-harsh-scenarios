@@ -4,7 +4,7 @@ This project is based on the work of [Pan, X., Shi, J., Luo, P., Wang, X., & Tan
 ## Dataset
 The dataset we use is [CULane](https://xingangpan.github.io/projects/CULane.html), a large scale challenging dataset comprised ofurban, rural and highway scenes collected in Beijing for traffic lane detection. This dataset extracts 133235 frames from more than 55 hours of videos frames, and the images are divided into 88880 images for training set (66.7%), 9675 images for validation set (7.3%) and 34680 images for test set(26.0%). 
 
-Test set is further divided into normal and 8 challengingcategories, including crowded, night, no line, shadow, arrow, dazzle light, curve, crossroad. Eachframe has a resolution of 1640 x 590 and is distorted. Lane segmentation labels, i.e.per-pixel labelsgenerated from original annotations, are provided.
+Test set is further divided into normal and 8 challenging categories, including crowded, night, no line, shadow, arrow, dazzle light, curve, crossroad. Each frame has a resolution of 1640 x 590 and is distorted. Lane segmentation labels, i.e.per-pixel labels generated from original annotations, are provided.
 
 <p align="center">
 <img width="821" alt="Screen Shot 2021-06-15 at 3 03 30 PM" src="https://user-images.githubusercontent.com/55666152/122129424-ed2b2080-cdea-11eb-958b-897e581d5968.png">
