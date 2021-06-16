@@ -20,17 +20,18 @@ pip3 install -r lane-detection-model/requirements.txt
 ```
 * VGG16 (**Model_vgg**): download [vgg16.npy](https://github.com/machrisaa/tensorflow-vgg/blob/master/vgg16.py) and put it in lane-detection-model/data.
 
-* Loss function and optimizer (**Model_bg0.2**): The loss function is defined as:
+* Loss function (**Model_bg0.2**): The loss function is defined as:
 <p align="center">
 <img width="250" alt="Screen Shot 2021-06-15 at 3 37 13 PM" src="https://user-images.githubusercontent.com/55666152/122132388-9b38c980-cdef-11eb-8374-66e3022125a5.png">
 </p>
 
-The binary segmentation loss is a weighted sum of cross entropy loss of lane and background pixels. The coefficient(w0) of background pixels for the segmentation loss is 0.4 and the coefficients(w1, w2, w3, w4) of lane marks are 1. g calculates sigmoid cross entropy loss, which represents the loss estimating existence label of each lane. The coefficient(β) of existence loss is 0.1.
-Since the number of background pixels is much larger than that of lane pixels, we want to lower their influence in the loss function. We decrease w0 from 0.4 to 0.2. 
+The binary segmentation loss is a weighted sum of cross entropy loss of lane and background pixels. The coefficient(w0) of background pixels for the segmentation loss is 0.4 and the coefficients(w1, w2, w3, w4) of lane marks are 1. g calculates sigmoid cross entropy loss, which represents the loss estimating existence label of each lane. The coefficient(β) of existence loss is 0.1. Since the number of background pixels is much larger than that of lane pixels, we want to lower their influence in the loss function. We decrease w0 from 0.4 to 0.2. 
+
+* Optimizer (**Model_nest**):  In addition to the modification of loss function, we also try to add Nesterov Momentum the into the optimizer. 
 
 * Data augmentation (**Model_data_aug**): run `data_aug.py`, it would expand the dataset from 88880 to 115701 by decreasing brightness, adding Gaussian blur and deceasing contrast to existing images. The proportion of images generated with different method is: decreased brightness (40%), Gaussian blur (30%) and decreased contrast (20%).
 
-* Replacing VGG16 with ResNet(**Model_resnet**):
+* Replacing VGG16 with ResNet(**Model_resnet**): The ResNet18 backbone is imple- mented with 5 ResNet blocks, each containing two layers with a regular convolutional operation path and a shortcut path. The convolution for the first block has a 7 × 7 kernel to shrink the size of the image so that it will be easier for the model to proceed the information, and the rest four blocks uses 3 × 3 kernels. The stride is 2 for conv2d and the size of the output from the 5 blocks are in the order of 64, 64, 128, 256, 512. The code implementation of ResNet18 is based on the work of [Kim](https://github.com/dalgu90/resnet-18-tensorflow/tree/49eb67c3c57258537c0dcbab5cdf2c38bb1af776) with pretrained weights on ImageNet dataset. The model is then finetuned on the CULane dataset.
 
 
 ## Train
